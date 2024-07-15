@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import "../node_modules/antd/dist/antd.css";
 import MainComponent from "./components/mainComponent";
 import { addUser, getUsers } from "./actions/userActions";
+// import "../assets/css/style.css"
 
 function App(props) {
   return (
@@ -14,7 +15,7 @@ function App(props) {
 }
 
 const mapStateToProps = (state) => ({
-  ...state,
+  userState: state.userState,
 });
 
 const mapDispatchToProps = {

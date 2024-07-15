@@ -8,13 +8,15 @@ function MainComponent(props) {
   const handleSubmit = ({ name, email }) => {
     addUser({ name, email });
   };
+
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [getUsers]);
 
   return (
     <div id="main-container-wrapper">
       <InputHandler onSubmit={handleSubmit} />
+      {userState.error && <p>Error: {userState.error}</p>}
       <SimpleTable dataSource={userState.users} />
     </div>
   );
