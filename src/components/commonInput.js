@@ -1,9 +1,18 @@
-import React, { useState } from "react";
-import "../assets/css/style.css";
+import React, { useEffect, useState } from "react";
+import { Input, Button, Row, Col } from "antd";
 
-const InputHandler = ({ onSubmit, editMode = false }) => {
+const InputHandler = ({ onSubmit, editingUser }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  useEffect(() => {
+  if (editingUser) {
+    setName(editingUser.name);
+    setEmail(editingUser.email);
+  } else {
+    setName("");
+    setEmail("");
+  }
+}, [editingUser]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,23 +35,36 @@ const InputHandler = ({ onSubmit, editMode = false }) => {
   };
 
   return (
-    <div className="header-box">
+    <div>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button type="submit">
-          {editMode ? "Edit user" : "Add user"}
-        </button>
+      <Row justify="center" style={{ marginBottom: '10px' }}>
+        <Col>
+          <Input
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            style={{ width: 200, marginBottom: 10 }}
+
+          />
+        </Col>
+      </Row>
+      <Row justify="center" style={{ marginBottom: '10px' }}>
+        <Col>
+          <Input
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={{ width: 200, marginBottom: 10 }}
+          />
+        </Col>
+      </Row>
+      <Row justify="center">
+        <Col>
+          <Button type="primary" onClick={handleSubmit}>
+            {editingUser ? "Update user" : "Add user"}
+          </Button>
+        </Col>
+      </Row>
       </form>
     </div>
   );
